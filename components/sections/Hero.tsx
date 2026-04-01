@@ -5,52 +5,66 @@ import Floating, { FloatingElement } from "@/components/ui/parallax-floating";
 
 const floatingImages = [
   {
-    url: "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=200&h=260&fit=crop&auto=format&q=80",
+    // Tall letter
+    url: "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=160&h=240&fit=crop&auto=format&q=80",
     depth: 0.5,
-    className: "absolute top-[12%] left-[8%] w-[100px] h-[130px] md:w-[140px] md:h-[180px]",
+    className:
+      "absolute top-[12%] left-[8%] w-[60px] h-[90px] md:w-[80px] md:h-[120px]",
     rotate: -6,
-    opacity: 0.5,
-  },
-  {
-    url: "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=180&h=220&fit=crop&auto=format&q=80",
-    depth: 1.5,
-    className: "absolute top-[8%] right-[12%] w-[90px] h-[110px] md:w-[130px] md:h-[160px]",
-    rotate: 4,
-    opacity: 0.6,
-  },
-  {
-    url: "https://images.unsplash.com/photo-1516414447565-b14be0adf13e?w=160&h=200&fit=crop&auto=format&q=80",
-    depth: 2.5,
-    className: "absolute top-[35%] left-[18%] w-[80px] h-[100px] md:w-[120px] md:h-[150px]",
-    rotate: -3,
-    opacity: 0.45,
-  },
-  {
-    url: "https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?w=200&h=160&fit=crop&auto=format&q=80",
-    depth: 3,
-    className: "absolute top-[25%] right-[22%] w-[110px] h-[90px] md:w-[160px] md:h-[130px]",
-    rotate: 7,
-    opacity: 0.5,
-  },
-  {
-    url: "https://images.unsplash.com/photo-1504198266287-1659872e6590?w=140&h=180&fit=crop&auto=format&q=80",
-    depth: 1,
-    className: "absolute bottom-[20%] left-[6%] w-[80px] h-[100px] md:w-[110px] md:h-[140px]",
-    rotate: -8,
     opacity: 0.55,
   },
   {
-    url: "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=180&h=240&fit=crop&auto=format&q=80",
+    // Landscape photo
+    url: "https://images.unsplash.com/photo-1504198266287-1659872e6590?w=320&h=220&fit=crop&auto=format&q=80",
+    depth: 1.5,
+    className:
+      "absolute top-[8%] right-[12%] w-[120px] h-[82px] md:w-[160px] md:h-[110px]",
+    rotate: 3,
+    opacity: 0.6,
+  },
+  {
+    // Small document
+    url: "https://images.unsplash.com/photo-1516414447565-b14be0adf13e?w=140&h=180&fit=crop&auto=format&q=80",
+    depth: 2.5,
+    className:
+      "absolute top-[38%] left-[18%] w-[52px] h-[68px] md:w-[70px] md:h-[90px]",
+    rotate: -2,
+    opacity: 0.45,
+  },
+  {
+    // Square
+    url: "https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?w=280&h=280&fit=crop&auto=format&q=80",
+    depth: 3,
+    className:
+      "absolute top-[25%] right-[20%] w-[100px] h-[100px] md:w-[140px] md:h-[140px]",
+    rotate: 8,
+    opacity: 0.5,
+  },
+  {
+    // Tall portrait
+    url: "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=180&h=260&fit=crop&auto=format&q=80",
+    depth: 1,
+    className:
+      "absolute bottom-[22%] left-[6%] w-[68px] h-[98px] md:w-[90px] md:h-[130px]",
+    rotate: -5,
+    opacity: 0.5,
+  },
+  {
+    // Medium letter
+    url: "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=200&h=260&fit=crop&auto=format&q=80",
     depth: 4,
-    className: "absolute bottom-[25%] right-[8%] w-[90px] h-[120px] md:w-[130px] md:h-[170px]",
-    rotate: 5,
+    className:
+      "absolute bottom-[25%] right-[8%] w-[80px] h-[110px] md:w-[110px] md:h-[150px]",
+    rotate: 4,
     opacity: 0.4,
   },
   {
+    // Tiny fragment
     url: "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=120&h=160&fit=crop&auto=format&q=80",
     depth: 2,
-    className: "absolute top-[55%] left-[40%] w-[70px] h-[90px] md:w-[100px] md:h-[130px]",
-    rotate: -4,
+    className:
+      "absolute top-[58%] left-[42%] w-[50px] h-[65px] md:w-[70px] md:h-[90px]",
+    rotate: -3,
     opacity: 0.35,
   },
 ];
@@ -95,7 +109,10 @@ export default function Hero() {
           style={{ fontSize: "clamp(80px, 12vw, 180px)" }}
         >
           <span className="italic">Fable</span>
-          <span className="text-text-secondary">&nbsp;&&nbsp;</span>
+          <span className="font-display font-light italic text-text-secondary">
+            {" "}
+            &{" "}
+          </span>
           Founder
         </motion.h1>
 
@@ -109,7 +126,7 @@ export default function Hero() {
         </motion.p>
 
         <motion.a
-          href="#pricing"
+          href="/commission"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.8, duration: 0.8 }}

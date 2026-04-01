@@ -67,7 +67,7 @@ export default function Pricing() {
           className="font-display font-light text-text-primary mb-16 md:mb-24"
           style={{ fontSize: "clamp(40px, 5vw, 72px)" }}
         >
-          Choose your chapter.
+          The Commission
         </motion.h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6">
@@ -82,7 +82,7 @@ export default function Pricing() {
                 ease: "easeOut",
                 delay: i * 0.1,
               }}
-              className={`p-8 md:p-10 transition-colors duration-300 ${
+              className={`p-8 md:p-10 flex flex-col transition-colors duration-300 ${
                 tier.featured
                   ? "border border-accent/40 bg-surface/50"
                   : "border border-text-tertiary/20 hover:border-text-tertiary/40"
@@ -98,7 +98,7 @@ export default function Pricing() {
                 {tier.price}
               </p>
 
-              <ul className="space-y-3 mb-10">
+              <ul className="space-y-3 mb-10 flex-1 min-h-[260px]">
                 {tier.features.map((feature) => (
                   <li
                     key={feature}
@@ -110,11 +110,11 @@ export default function Pricing() {
               </ul>
 
               <a
-                href="#contact"
-                className={`inline-block font-body text-[11px] font-normal tracking-[0.25em] uppercase pb-1 border-b transition-colors duration-300 ${
+                href="/contact"
+                className={`inline-block font-body text-[11px] font-normal tracking-[0.25em] uppercase pb-1 transition-colors duration-300 self-start ${
                   tier.featured
-                    ? "text-accent border-accent/40 hover:border-accent"
-                    : "text-text-secondary border-text-tertiary/40 hover:border-text-secondary"
+                    ? "text-accent border-b border-accent/40 hover:border-accent"
+                    : "text-text-secondary border-b border-text-tertiary/40 hover:text-accent hover:border-accent"
                 }`}
               >
                 Commission
