@@ -2,9 +2,9 @@
 
 import { motion } from "motion/react";
 
-export default function PullQuote() {
+export default function MissionStatement() {
   return (
-    <section className="relative px-6 md:px-10 py-24 md:py-40">
+    <section className="px-6 md:px-10 py-24 md:py-40">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -23,7 +23,7 @@ export default function PullQuote() {
             Everyone knows how Shakespeare lived. Fable & Founder makes sure we
             also know how your grandmother did.
           </p>
-          <p className="mt-8 font-body text-[10px] font-normal tracking-[0.3em] uppercase text-text-secondary">
+          <p className="mt-8 font-body text-[10px] font-normal tracking-[0.3em] uppercase text-accent">
             &mdash; The Fable & Founder Promise
           </p>
         </div>

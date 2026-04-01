@@ -1,12 +1,14 @@
 "use client";
 
 import { motion } from "motion/react";
+import Link from "next/link";
 
 const tiers = [
   {
     name: "The Chapter",
     price: "$1,200",
     featured: false,
+    cta: "Begin This Chapter",
     features: [
       "One guided interview session (60 min)",
       "Edited narrative up to 5,000 words",
@@ -19,6 +21,7 @@ const tiers = [
     name: "The Volume",
     price: "$3,200",
     featured: true,
+    cta: "Start with the Volume",
     features: [
       "Three interview sessions (90 min each)",
       "Full narrative up to 20,000 words",
@@ -33,6 +36,7 @@ const tiers = [
     name: "The Legacy",
     price: "$7,500",
     featured: false,
+    cta: "Commission the Legacy",
     features: [
       "Unlimited interview sessions",
       "Complete life narrative — no word limit",
@@ -65,7 +69,7 @@ export default function Pricing() {
           viewport={{ once: true }}
           transition={{ duration: 0.9, ease: "easeOut" }}
           className="font-display font-light text-text-primary mb-16 md:mb-24"
-          style={{ fontSize: "clamp(40px, 5vw, 72px)" }}
+          style={{ fontSize: "clamp(40px, 5vw, 64px)" }}
         >
           The Commission
         </motion.h2>
@@ -77,11 +81,7 @@ export default function Pricing() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{
-                duration: 0.9,
-                ease: "easeOut",
-                delay: i * 0.1,
-              }}
+              transition={{ duration: 0.9, ease: "easeOut", delay: i * 0.1 }}
               className={`p-8 md:p-10 flex flex-col transition-colors duration-300 ${
                 tier.featured
                   ? "border border-accent/40 bg-surface/50"
@@ -98,27 +98,32 @@ export default function Pricing() {
                 {tier.price}
               </p>
 
-              <ul className="space-y-3 mb-10 flex-1 min-h-[260px]">
-                {tier.features.map((feature) => (
+              <ul className="space-y-0 mb-10 flex-1 min-h-[260px]">
+                {tier.features.map((feature, fi) => (
                   <li
                     key={feature}
-                    className="font-body text-[13px] font-light text-text-secondary leading-relaxed"
+                    className={`font-body text-[13px] font-light text-text-secondary leading-relaxed py-2.5 ${
+                      fi < tier.features.length - 1
+                        ? "border-b border-text-tertiary/20"
+                        : ""
+                    }`}
                   >
+                    <span className="text-accent mr-2">&middot;</span>
                     {feature}
                   </li>
                 ))}
               </ul>
 
-              <a
+              <Link
                 href="/contact"
-                className={`inline-block font-body text-[11px] font-normal tracking-[0.25em] uppercase pb-1 transition-colors duration-300 self-start ${
+                className={`inline-block font-body text-[10px] font-normal tracking-[0.2em] uppercase pb-1 transition-colors duration-300 self-start ${
                   tier.featured
                     ? "text-accent border-b border-accent/40 hover:border-accent"
                     : "text-text-secondary border-b border-text-tertiary/40 hover:text-accent hover:border-accent"
                 }`}
               >
-                Commission
-              </a>
+                {tier.cta}
+              </Link>
             </motion.div>
           ))}
         </div>

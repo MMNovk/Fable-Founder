@@ -15,17 +15,17 @@ const navItems: NavItem[] = [
     label: "Our Story",
     href: "/our-story",
     children: [
-      { label: "Mission", href: "/our-story/mission" },
-      { label: "The Founder", href: "/our-story/the-founder" },
+      { label: "Mission", href: "/our-story#mission" },
+      { label: "The Founder", href: "/our-story#founder" },
     ],
   },
   {
     label: "The Product",
     href: "/product",
     children: [
-      { label: "The Book", href: "/product/the-book" },
-      { label: "The Coin", href: "/product/the-coin" },
-      { label: "The Vault", href: "/product/the-vault" },
+      { label: "The Book", href: "/product#book" },
+      { label: "The Coin", href: "/product#coin" },
+      { label: "The Vault", href: "/product#vault" },
     ],
   },
   { label: "Commission", href: "/commission" },
@@ -148,14 +148,12 @@ export default function Nav() {
           <br />& Preservation
         </Link>
 
-        {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-8">
           {navItems.map((item) => (
             <NavLink key={item.label} item={item} />
           ))}
         </div>
 
-        {/* Mobile hamburger */}
         <button
           onClick={() => setMobileOpen(true)}
           className="md:hidden flex flex-col gap-[5px] pt-1"
@@ -166,7 +164,6 @@ export default function Nav() {
         </button>
       </nav>
 
-      {/* Mobile overlay */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
