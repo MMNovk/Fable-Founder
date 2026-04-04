@@ -18,11 +18,11 @@ export default function Footer() {
           <div className="flex items-center gap-6">
             <Link
               href="/privacy"
-              className="font-body text-[11px] font-light text-text-tertiary transition-colors duration-300 hover:text-text-secondary"
+              className="font-body text-[11px] font-light text-text-secondary transition-colors duration-300 hover:text-text-primary"
             >
               Privacy Policy
             </Link>
-            <p className="font-body text-[11px] font-light text-text-tertiary">
+            <p className="font-body text-[11px] font-light text-text-secondary">
               &copy; 2026 Fable & Founder
             </p>
           </div>
