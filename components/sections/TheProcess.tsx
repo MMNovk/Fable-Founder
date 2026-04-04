@@ -53,7 +53,7 @@ export default function TheProcess() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.9 }}
-          className="font-body text-[10px] font-normal tracking-[0.3em] uppercase text-accent mb-16 md:mb-20"
+          className="font-body text-[14px] font-normal tracking-[0.3em] uppercase text-accent mb-16 md:mb-20"
         >
           How It Works
         </motion.p>

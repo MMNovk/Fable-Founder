@@ -54,6 +54,9 @@ export default function BriefAbout() {
           </Link>
         </div>
       </motion.div>
+
+      {/* Closing rule */}
+      <div className="max-w-6xl mx-auto mt-16 md:mt-24" style={{ height: "0.5px", background: "#4a4540" }} />
     </section>
   );
 }

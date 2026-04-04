@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "About — Fable & Founder",
@@ -8,144 +9,170 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen px-6 md:px-10 py-32">
-      <div className="max-w-4xl mx-auto">
-        {/* 1 — Mission Hero */}
-        <section id="mission" className="mb-24 md:mb-32">
-          <p className="font-body text-[10px] font-normal tracking-[0.3em] uppercase text-accent mb-6">
-            Our Mission
-          </p>
-          <h1
-            className="font-display font-light italic text-text-primary leading-[1.2] mb-8"
-            style={{ fontSize: "clamp(40px, 5vw, 64px)" }}
-          >
-            Every person who ever lived had a story worth telling.
-          </h1>
-          <p className="font-body text-[15px] font-light text-text-secondary leading-[1.9] max-w-2xl mb-6">
-            Most were never written down. We exist to change that.
-          </p>
-          <p className="font-body text-[15px] font-light text-text-secondary leading-[1.9] max-w-2xl">
-            Fable &amp; Founder preserves the voices, memories, and wisdom of
-            the people who shaped your world — before time takes them from us.
-            We believe that ordinary lives contain extraordinary stories, and
-            that the act of preserving them is itself an act of love.
-          </p>
-        </section>
+    <main className="min-h-screen">
+      {/* Section 1 — Mission Hero (full height, centered) */}
+      <section
+        id="mission"
+        className="min-h-screen flex items-center justify-center px-6 md:px-10"
+        style={{ background: "#2a2926" }}
+      >
+        <p
+          className="font-display font-light italic text-center leading-[1.3] max-w-4xl"
+          style={{ fontSize: "clamp(40px, 5vw, 72px)", color: "#d4cfc6" }}
+        >
+          Ordinary people live extraordinary lives.
+          <br />
+          We make sure those lives aren&rsquo;t forgotten.
+        </p>
+      </section>
 
-        {/* Divider */}
-        <div className="w-full mb-24 md:mb-32" style={{ height: "0.5px", background: "#4a4540" }} />
+      {/* Section 2 — Origin Story */}
+      <section className="px-6 md:px-10 py-24 md:py-40">
+        <div className="max-w-3xl">
+          <p className="font-body text-[10px] font-normal tracking-[0.3em] uppercase text-accent mb-12">
+            Our Story
+          </p>
 
-        {/* 2 — Origin Story */}
-        <section className="mb-24 md:mb-32">
-          <p className="font-body text-[10px] font-normal tracking-[0.3em] uppercase text-accent mb-6">
-            The Origin
-          </p>
-          <h2
-            className="font-display font-light text-text-primary leading-[1.2] mb-8"
-            style={{ fontSize: "clamp(32px, 4vw, 52px)" }}
-          >
-            It started with a grandfather.
-          </h2>
-          <p className="font-body text-[15px] font-light text-text-secondary leading-[1.9] max-w-2xl mb-6">
-            When our founder lost his grandfather, the family gathered to
-            remember. But within hours, the details were already slipping —
-            dates blurred, stories contradicted each other, and the quiet
-            moments that defined the man were lost in the noise of grief.
-          </p>
-          <p className="font-body text-[15px] font-light text-text-secondary leading-[1.9] max-w-2xl">
-            That evening, a simple question emerged: what if someone had taken
-            the time to sit with him, to listen, and to write it all down?
-            Not a eulogy. Not a Wikipedia entry. A real, full, honest account
-            of a life — told in his own voice. Fable &amp; Founder was born
-            from that question.
-          </p>
-        </section>
+          <div className="space-y-8">
+            <p
+              className="font-body font-light text-[16px] leading-[1.9]"
+              style={{ color: "#d4cfc6" }}
+            >
+              I grew up visiting retirement homes. My grandmother lived in one
+              for the last years of her life, and every weekend I would sit with
+              her and the other residents. They told me about crossing oceans in
+              the bellies of ships, about losing everything in wars they didn&rsquo;t
+              start, about building lives from nothing in countries where they
+              didn&rsquo;t speak the language. I was hearing history — not the kind in
+              textbooks, but the kind that disappears when the person telling it
+              is gone.
+            </p>
 
-        {/* Divider */}
-        <div className="w-full mb-24 md:mb-32" style={{ height: "0.5px", background: "#4a4540" }} />
+            <p
+              className="font-body font-light text-[16px] leading-[1.9]"
+              style={{ color: "#d4cfc6" }}
+            >
+              There&rsquo;s a gap in how history works. We know what kings and
+              generals did. We can read their letters, study their campaigns,
+              visit their monuments. But we don&rsquo;t know what ordinary people
+              felt — how they survived, what they carried, what they refused to
+              let go of. That gap is what Fable &amp; Founder fills. Not with
+              data or archives, but with stories told in the voices of the
+              people who lived them.
+            </p>
 
-        {/* 3 — What We Believe */}
-        <section className="mb-24 md:mb-32">
-          <p className="font-body text-[10px] font-normal tracking-[0.3em] uppercase text-accent mb-6">
-            What We Believe
-          </p>
-          <div className="space-y-10 max-w-2xl">
-            <div>
-              <h3 className="font-display font-light italic text-text-primary text-xl mb-3">
-                Every life is a first edition.
-              </h3>
-              <p className="font-body text-[15px] font-light text-text-secondary leading-[1.9]">
-                There will never be another like it. The stories, the voice,
-                the perspective — once they&apos;re gone, they&apos;re gone
-                forever. We treat every project with the reverence of
-                something irreplaceable.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-display font-light italic text-text-primary text-xl mb-3">
-                Craft over speed.
-              </h3>
-              <p className="font-body text-[15px] font-light text-text-secondary leading-[1.9]">
-                We take as long as the story requires. Interviews are
-                unhurried. Writing is revised until it reads like literature.
-                Design is considered down to the paper stock and binding.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-display font-light italic text-text-primary text-xl mb-3">
-                The quiet ones matter most.
-              </h3>
-              <p className="font-body text-[15px] font-light text-text-secondary leading-[1.9]">
-                History remembers the loud. We listen to the quiet — the
-                people who never sought the spotlight but whose lives were
-                no less extraordinary for it.
-              </p>
-            </div>
+            <p
+              className="font-body font-light text-[16px] leading-[1.9]"
+              style={{ color: "#d4cfc6" }}
+            >
+              This isn&rsquo;t nostalgia. It&rsquo;s urgency. The people who lived
+              through the 20th century&rsquo;s great upheavals — the wars, the
+              migrations, the revolutions — are still here. For now. Every week,
+              the world loses thousands of voices that will never be heard again.
+              We started this company because we believe that doesn&rsquo;t have to
+              be the way it ends.
+            </p>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Divider */}
-        <div className="w-full mb-24 md:mb-32" style={{ height: "0.5px", background: "#4a4540" }} />
-
-        {/* 4 — The Founder */}
-        <section id="founder" className="mb-24 md:mb-32">
-          <p className="font-body text-[10px] font-normal tracking-[0.3em] uppercase text-accent mb-6">
-            The Founder
-          </p>
-          <h2
-            className="font-display font-light text-text-primary leading-[1.2] mb-8"
-            style={{ fontSize: "clamp(32px, 4vw, 52px)" }}
-          >
-            A story of our own.
-          </h2>
-          <p className="font-body text-[15px] font-light text-text-secondary leading-[1.9] max-w-2xl">
-            Coming soon. The story behind the storytellers — how a personal
-            loss became a company dedicated to making sure no story is lost
-            again.
-          </p>
-        </section>
-
-        {/* 5 — CTA */}
-        <section className="text-center py-16">
-          <p
-            className="font-display font-light italic text-text-primary leading-[1.3] mb-8"
-            style={{ fontSize: "clamp(24px, 3vw, 36px)" }}
-          >
-            Ready to preserve a story?
-          </p>
-          <a
-            href="/commission"
-            className="inline-block font-body font-normal text-[11px] uppercase pb-1"
-            style={{
-              letterSpacing: "0.2em",
-              color: "#c4a96b",
-              borderBottom: "0.5px solid #c4a96b",
-            }}
-          >
-            Begin a Commission &rarr;
-          </a>
-        </section>
+      {/* Divider */}
+      <div className="max-w-6xl mx-auto px-6 md:px-10">
+        <div style={{ height: "0.5px", background: "#4a4540" }} />
       </div>
+
+      {/* Section 3 — What We Believe */}
+      <section className="px-6 md:px-10 py-24 md:py-40">
+        <div className="max-w-3xl space-y-0">
+          <p
+            className="font-display font-light italic leading-[1.4] py-10"
+            style={{ fontSize: "clamp(20px, 2.5vw, 24px)", color: "#d4cfc6" }}
+          >
+            Every life contains a history worth preserving.
+          </p>
+          <div style={{ height: "0.5px", background: "rgba(196, 169, 107, 0.3)" }} />
+          <p
+            className="font-display font-light italic leading-[1.4] py-10"
+            style={{ fontSize: "clamp(20px, 2.5vw, 24px)", color: "#d4cfc6" }}
+          >
+            The act of being heard is itself a gift.
+          </p>
+          <div style={{ height: "0.5px", background: "rgba(196, 169, 107, 0.3)" }} />
+          <p
+            className="font-display font-light italic leading-[1.4] py-10"
+            style={{ fontSize: "clamp(20px, 2.5vw, 24px)", color: "#d4cfc6" }}
+          >
+            Memory is not just personal. It is historical.
+          </p>
+        </div>
+      </section>
+
+      {/* Divider */}
+      <div className="max-w-6xl mx-auto px-6 md:px-10">
+        <div style={{ height: "0.5px", background: "#4a4540" }} />
+      </div>
+
+      {/* Section 4 — The Founder */}
+      <section id="founder" className="px-6 md:px-10 py-24 md:py-40">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16">
+          {/* Photo */}
+          <div className="aspect-[3/4] overflow-hidden max-w-sm">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=800&fit=crop&auto=format&q=80"
+              alt="The Founder"
+              className="w-full h-full object-cover grayscale sepia brightness-90"
+              loading="lazy"
+            />
+          </div>
+
+          {/* Bio */}
+          <div className="flex flex-col justify-center">
+            <h2
+              className="font-display font-light mb-6"
+              style={{ fontSize: "clamp(28px, 3.5vw, 32px)", color: "#d4cfc6" }}
+            >
+              The Founder
+            </h2>
+            <p
+              className="font-body font-light text-[15px] leading-[1.9] mb-4"
+              style={{ color: "#7a7166" }}
+            >
+              Coming soon. The story behind the storytellers — how a personal
+              loss became a company dedicated to making sure no story is lost
+              again.
+            </p>
+            <p
+              className="font-body font-light text-[15px] leading-[1.9]"
+              style={{ color: "#7a7166" }}
+            >
+              Some stories need time before they&rsquo;re ready to be told.
+              This is one of them.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 5 — CTA */}
+      <section className="px-6 md:px-10 py-24 md:py-32 text-center">
+        <p
+          className="font-display font-light italic leading-[1.3] mb-8"
+          style={{ fontSize: "clamp(24px, 3vw, 36px)", color: "#d4cfc6" }}
+        >
+          Ready to preserve a story?
+        </p>
+        <Link
+          href="/commission"
+          className="inline-block font-body font-normal text-[11px] uppercase pb-1"
+          style={{
+            letterSpacing: "0.2em",
+            color: "#c4a96b",
+            borderBottom: "0.5px solid #c4a96b",
+          }}
+        >
+          Commission a Story &rarr;
+        </Link>
+      </section>
     </main>
   );
 }

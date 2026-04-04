@@ -25,7 +25,7 @@ const heroImages = [
   },
   {
     url: "https://images.unsplash.com/photo-1562016600-ece13e8ba570?q=80&w=2838&auto=format&fit=crop",
-    className: "top-[0%] left-[83%]",
+    className: "top-[15%] left-[83%]",
     imgClassName: "w-24 h-24 md:w-32 md:h-32",
     depth: 1,
   },
@@ -55,15 +55,33 @@ const heroImages = [
   },
 ]
 
+const titleText = "Fable & Founder"
+
 export default function Hero() {
   const [scope, animate] = useAnimate()
 
   useEffect(() => {
-    animate(
-      "img",
-      { opacity: [0, 1] },
-      { duration: 0.5, delay: stagger(0.15) }
-    )
+    const sequence = async () => {
+      // Phase 1: letters animate in one by one
+      await animate(
+        ".hero-letter",
+        { opacity: [0, 1], y: [20, 0] },
+        { duration: 0.5, delay: stagger(0.04), ease: "easeOut" }
+      )
+      // Phase 2: CTA fades in
+      await animate(
+        ".hero-cta",
+        { opacity: [0, 1], y: [10, 0] },
+        { duration: 0.5, ease: "easeOut" }
+      )
+      // Phase 3: photos fade in one by one
+      animate(
+        "img",
+        { opacity: [0, 1] },
+        { duration: 0.5, delay: stagger(0.15) }
+      )
+    }
+    sequence()
   }, [])
 
   return (
@@ -73,30 +91,31 @@ export default function Hero() {
       ref={scope}
     >
       {/* Centered text — z-50 so it sits above floating images */}
-      <motion.div
-        className="z-50 text-center flex flex-col items-center gap-6"
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.88, delay: 1.5 }}
-      >
+      <div className="z-50 text-center flex flex-col items-center gap-6">
         <h1
           className="font-display font-light leading-none"
           style={{ fontSize: "clamp(72px, 10vw, 140px)", color: "#d4cfc6" }}
         >
-          <span className="italic">Fable</span>
-          {" & "}
-          <span>Founder</span>
+          {titleText.split("").map((char, i) => (
+            <span
+              key={i}
+              className={`hero-letter inline-block ${char === " " ? "mr-[0.2em]" : ""}`}
+              style={{ opacity: 0, fontStyle: i < 5 ? "italic" : "normal" }}
+            >
+              {char === " " ? "\u00A0" : char}
+            </span>
+          ))}
         </h1>
         <a
           href="/commission"
-          className="font-body font-normal uppercase text-[11px] tracking-[0.25em] pb-2 border-b transition-colors duration-300"
-          style={{ color: "#d4cfc6", borderColor: "#c4a96b" }}
+          className="hero-cta font-body font-normal uppercase text-[11px] tracking-[0.25em] pb-2 border-b transition-colors duration-300"
+          style={{ opacity: 0, color: "#d4cfc6", borderColor: "#c4a96b" }}
         >
           Preserve a Story
         </a>
-      </motion.div>
+      </div>
 
-      {/* Floating images — use component exactly as provided, sensitivity={-1} */}
+      {/* Floating images — all start opacity 0, animate in after text */}
       <Floating sensitivity={-1} className="overflow-hidden">
         {heroImages.map((img, i) => (
           <FloatingElement key={i} depth={img.depth} className={img.className}>

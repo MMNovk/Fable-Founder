@@ -18,20 +18,18 @@ export default function TheStory() {
         >
           {/* Block 1: Coin + Listen inline */}
           <div className="mb-8">
-            <MemoryCoin
-              audioSrc="https://upload.wikimedia.org/wikipedia/commons/4/40/En-us-story.ogg"
-            />
+            <MemoryCoin audioSrc="/audio/placeholder.mp3" />
           </div>
 
           {/* Rule */}
           <div className="w-full mb-8" style={{ height: "0.5px", background: "#4a4540" }} />
 
-          {/* Block 2: From the Archive */}
+          {/* Block 2 */}
           <p
             className="font-body font-normal text-[10px] uppercase mb-4"
             style={{ letterSpacing: "0.3em", color: "#7a7166" }}
           >
-            From the Archive
+            From &lsquo;The Life of Harold Kim&rsquo; — Commissioned 2024
           </p>
 
           <blockquote
@@ -45,10 +43,6 @@ export default function TheStory() {
             go of.&rdquo;
           </blockquote>
 
-          <p className="font-body font-light text-[12px] mb-6" style={{ color: "#7a7166" }}>
-            From &ldquo;The Life of Harold Kim&rdquo; — Commissioned 2024
-          </p>
-
           <Link
             href="/stories/harold-kim"
             className="inline-block self-start font-body font-normal text-[11px] uppercase pb-1"
@@ -58,7 +52,7 @@ export default function TheStory() {
               borderBottom: "0.5px solid #c4a96b",
             }}
           >
-            Read the Full Story &rarr;
+            Read an Excerpt &rarr;
           </Link>
         </motion.div>
 
@@ -70,16 +64,6 @@ export default function TheStory() {
           transition={{ duration: 0.9, ease: "easeOut", delay: 0.15 }}
           className="flex flex-col"
         >
-          <div className="relative w-full max-w-sm aspect-[3/4] overflow-hidden mb-6">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="https://images.unsplash.com/photo-1566616213894-2d4e1baee5d8?w=600&h=800&fit=crop&auto=format&q=80"
-              alt="Harold Kim"
-              className="w-full h-full object-cover grayscale sepia brightness-90 contrast-110"
-              loading="lazy"
-            />
-          </div>
-
           <h3
             className="font-display font-light"
             style={{ fontSize: "clamp(28px, 3.5vw, 48px)", color: "#d4cfc6" }}
@@ -92,9 +76,19 @@ export default function TheStory() {
           >
             1931 — 2019
           </p>
-          <p className="font-body font-light text-[12px] mt-1" style={{ color: "#7a7166" }}>
+          <p className="font-body font-light text-[12px] mt-1 mb-6" style={{ color: "#7a7166" }}>
             Busan &middot; San Francisco &middot; Oakland
           </p>
+
+          <div className="relative w-full max-w-sm aspect-[3/4] overflow-hidden">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="https://images.unsplash.com/photo-1566616213894-2d4e1baee5d8?w=600&h=800&fit=crop&auto=format&q=80"
+              alt="Harold Kim"
+              className="w-full h-full object-cover grayscale sepia brightness-90 contrast-110"
+              loading="lazy"
+            />
+          </div>
         </motion.div>
       </div>
     </section>
