@@ -59,20 +59,10 @@ export default function Pricing() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.9 }}
-          className="font-body text-[10px] font-normal tracking-[0.3em] uppercase text-text-secondary mb-6"
+          className="font-body text-[10px] font-normal tracking-[0.3em] uppercase text-text-secondary mb-16 md:mb-20"
         >
           Commission
         </motion.p>
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.9, ease: "easeOut" }}
-          className="font-display font-light text-text-primary mb-16 md:mb-24"
-          style={{ fontSize: "clamp(40px, 5vw, 64px)" }}
-        >
-          The Commission
-        </motion.h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6">
           {tiers.map((tier, i) => (

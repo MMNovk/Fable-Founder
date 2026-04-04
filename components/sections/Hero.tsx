@@ -3,12 +3,12 @@
 import { motion } from "motion/react";
 import Floating, { FloatingElement } from "@/components/ui/parallax-floating";
 
-const brandName = [
+const brandLine1 = [
   { text: "Fable", italic: true },
-  { text: " ", italic: false },
+  { text: "\u00A0", italic: false },
   { text: "&", italic: true },
 ];
-const brandNameLine2 = [{ text: "Founder", italic: false }];
+const brandLine2 = [{ text: "Founder", italic: false }];
 
 function AnimatedLetters({
   words,
@@ -33,9 +33,8 @@ function AnimatedLetters({
               className={`inline-block ${word.italic ? "italic" : ""} ${
                 char === "&" ? "text-text-secondary" : ""
               }`}
-              style={char === " " ? { width: "0.3em" } : undefined}
             >
-              {char === " " ? "\u00A0" : char}
+              {char}
             </motion.span>
           );
         })
@@ -44,70 +43,85 @@ function AnimatedLetters({
   );
 }
 
+// All photos stay in upper 60% OR right 40%.
+// No photo where top > 55% AND left < 45% (text zone = bottom-left).
 const floatingImages = [
   {
+    // Tall portrait — top-left safe zone
     url: "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=200&h=300&fit=crop&auto=format&q=80",
     depth: 0.5,
-    className: "absolute top-[10%] left-[5%] w-[75px] h-[112px] md:w-[100px] md:h-[150px]",
-    rotate: -6,
+    className: "top-[8%] left-[8%] w-[75px] h-[112px] md:w-[100px] md:h-[150px]",
+    rotate: -8,
     opacity: 0.55,
   },
   {
-    url: "https://images.unsplash.com/photo-1504198266287-1659872e6590?w=400&h=275&fit=crop&auto=format&q=80",
+    // Wide landscape — top-center
+    url: "https://images.unsplash.com/photo-1504198266287-1659872e6590?w=440&h=280&fit=crop&auto=format&q=80",
     depth: 1.5,
-    className: "absolute top-[6%] right-[10%] w-[150px] h-[103px] md:w-[212px] md:h-[137px]",
+    className: "top-[5%] left-[35%] w-[165px] h-[105px] md:w-[220px] md:h-[140px]",
     rotate: 3,
     opacity: 0.6,
   },
   {
-    url: "https://images.unsplash.com/photo-1516414447565-b14be0adf13e?w=175&h=225&fit=crop&auto=format&q=80",
+    // Small square — upper-center-right
+    url: "https://images.unsplash.com/photo-1516414447565-b14be0adf13e?w=180&h=180&fit=crop&auto=format&q=80",
     depth: 2.5,
-    className: "absolute top-[35%] left-[15%] w-[65px] h-[84px] md:w-[87px] md:h-[112px]",
+    className: "top-[18%] right-[12%] w-[68px] h-[68px] md:w-[90px] md:h-[90px]",
     rotate: -2,
     opacity: 0.45,
   },
   {
-    url: "https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?w=325&h=325&fit=crop&auto=format&q=80",
+    // Medium portrait — center-right
+    url: "https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?w=240&h=330&fit=crop&auto=format&q=80",
     depth: 3,
-    className: "absolute top-[20%] right-[18%] w-[120px] h-[120px] md:w-[162px] md:h-[162px]",
+    className: "top-[22%] right-[28%] w-[90px] h-[124px] md:w-[120px] md:h-[165px]",
     rotate: 8,
     opacity: 0.5,
   },
   {
-    url: "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=225&h=325&fit=crop&auto=format&q=80",
+    // Landscape — right side mid
+    url: "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=400&h=260&fit=crop&auto=format&q=80",
     depth: 1,
-    className: "absolute bottom-[25%] left-[4%] w-[85px] h-[122px] md:w-[112px] md:h-[162px]",
+    className: "top-[42%] right-[5%] w-[150px] h-[97px] md:w-[200px] md:h-[130px]",
     rotate: -5,
     opacity: 0.5,
   },
   {
-    url: "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=250&h=325&fit=crop&auto=format&q=80",
+    // Tall — top-right area
+    url: "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=250&h=340&fit=crop&auto=format&q=80",
     depth: 4,
-    className: "absolute bottom-[20%] right-[6%] w-[100px] h-[137px] md:w-[137px] md:h-[187px]",
+    className: "top-[6%] right-[3%] w-[100px] h-[137px] md:w-[137px] md:h-[187px]",
     rotate: 4,
     opacity: 0.4,
   },
   {
-    url: "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=175&h=225&fit=crop&auto=format&q=80",
+    // Small — upper center fill
+    url: "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=180&h=180&fit=crop&auto=format&q=80",
     depth: 2,
-    className: "absolute top-[50%] right-[35%] w-[62px] h-[81px] md:w-[87px] md:h-[112px]",
+    className: "top-[30%] left-[28%] w-[62px] h-[62px] md:w-[85px] md:h-[85px]",
     rotate: -3,
     opacity: 0.35,
   },
+  {
+    // Extra — center-top gap fill
+    url: "https://images.unsplash.com/photo-1541963463532-d68292c34b19?w=300&h=200&fit=crop&auto=format&q=80",
+    depth: 1.5,
+    className: "top-[12%] left-[55%] w-[110px] h-[72px] md:w-[150px] md:h-[98px]",
+    rotate: 6,
+    opacity: 0.42,
+  },
 ];
 
-// Total letters in line 1: F-a-b-l-e- -& = 7 chars, line2: F-o-u-n-d-e-r = 7 chars = 14 total
-// 14 * 0.04s = 0.56s stagger + 0.6s duration ≈ 1.16s total
-const PHOTO_START_DELAY = 1.4;
+const PHOTO_START_DELAY = 1.6;
 
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex flex-col justify-end overflow-hidden px-6 md:px-20 pb-16 md:pb-20">
       {/* Floating parallax layer */}
       <Floating
-        className="absolute inset-0 pointer-events-none"
+        className="pointer-events-none"
         sensitivity={-1}
-        easingFactor={0.03}
+        easingFactor={0.025}
       >
         {floatingImages.map((img, i) => (
           <FloatingElement key={i} depth={img.depth} className={img.className}>
@@ -141,10 +155,10 @@ export default function Hero() {
           style={{ fontSize: "clamp(72px, 10vw, 140px)" }}
         >
           <span className="block">
-            <AnimatedLetters words={brandName} />
+            <AnimatedLetters words={brandLine1} />
           </span>
           <span className="block">
-            <AnimatedLetters words={brandNameLine2} baseDelay={7 * 0.04} />
+            <AnimatedLetters words={brandLine2} baseDelay={7 * 0.04} />
           </span>
         </h1>
 
