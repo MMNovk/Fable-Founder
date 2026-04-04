@@ -8,7 +8,7 @@ export default function TheStory() {
   return (
     <section className="px-6 md:px-10 py-24 md:py-40">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24">
-        {/* Left — Mission + Coin + Archive excerpt */}
+        {/* Left — Coin + Archive excerpt */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -16,37 +16,17 @@ export default function TheStory() {
           transition={{ duration: 0.9, ease: "easeOut" }}
           className="flex flex-col"
         >
-          {/* Block 1: Mission statement */}
-          <p
-            className="font-display font-light italic leading-[1.3] mb-8"
-            style={{ fontSize: "clamp(24px, 3vw, 32px)", color: "#d4cfc6" }}
-          >
-            Everyone knows how Shakespeare lived. Fable & Founder makes sure
-            we also know how your grandmother did.
-          </p>
-
-          {/* Rule */}
-          <div className="w-full mb-8" style={{ height: "0.5px", background: "#4a4540" }} />
-
-          {/* Block 2: Coin + Listen inline */}
-          <div className="flex items-center gap-4 mb-8">
+          {/* Block 1: Coin + Listen inline */}
+          <div className="mb-8">
             <MemoryCoin
               audioSrc="https://upload.wikimedia.org/wikipedia/commons/4/40/En-us-story.ogg"
-              subjectName="Harold Kim"
-              subjectDates="1931–2019"
             />
-            <p
-              className="font-body font-normal text-[11px] uppercase"
-              style={{ letterSpacing: "0.25em", color: "#c4a96b" }}
-            >
-              Listen to his story.
-            </p>
           </div>
 
           {/* Rule */}
           <div className="w-full mb-8" style={{ height: "0.5px", background: "#4a4540" }} />
 
-          {/* Block 3: From the Archive */}
+          {/* Block 2: From the Archive */}
           <p
             className="font-body font-normal text-[10px] uppercase mb-4"
             style={{ letterSpacing: "0.3em", color: "#7a7166" }}
@@ -90,7 +70,6 @@ export default function TheStory() {
           transition={{ duration: 0.9, ease: "easeOut", delay: 0.15 }}
           className="flex flex-col"
         >
-          {/* Portrait */}
           <div className="relative w-full max-w-sm aspect-[3/4] overflow-hidden mb-6">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img

@@ -12,11 +12,11 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   {
-    label: "Our Story",
-    href: "/our-story",
+    label: "About",
+    href: "/about",
     children: [
-      { label: "Mission", href: "/our-story#mission" },
-      { label: "The Founder", href: "/our-story#founder" },
+      { label: "Mission", href: "/about#mission" },
+      { label: "The Founder", href: "/about#founder" },
     ],
   },
   {
