@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 import { motion, stagger, useAnimate } from "motion/react"
 import Floating, { FloatingElement } from "@/components/ui/parallax-floating"
 
@@ -59,8 +59,12 @@ const titleText = "Fable & Founder"
 
 export default function Hero() {
   const [scope, animate] = useAnimate()
+  const hasAnimated = useRef(false)
 
   useEffect(() => {
+    if (hasAnimated.current) return
+    hasAnimated.current = true
+
     const sequence = async () => {
       // Phase 1: letters animate in one by one
       await animate(
@@ -72,7 +76,7 @@ export default function Hero() {
       await animate(
         ".hero-cta",
         { opacity: [0, 1], y: [10, 0] },
-        { duration: 0.5, ease: "easeOut" }
+        { duration: 0.4, ease: "easeOut" }
       )
       // Phase 3: photos fade in one by one
       animate(
@@ -85,6 +89,7 @@ export default function Hero() {
   }, [])
 
   // Fade out hero images when mission section scrolls into view, back in when leaving
+  // Opacity only — no y transform, which conflicts with parallax translate3d
   useEffect(() => {
     const missionSection = document.getElementById("mission-section")
     if (!missionSection) return
@@ -92,18 +97,16 @@ export default function Hero() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          // Scrolled DOWN to mission — animate images out upward
           animate(
             "img",
-            { opacity: 0, y: -60 },
-            { duration: 0.6, ease: "easeOut", delay: stagger(0.08) }
+            { opacity: 0 },
+            { duration: 0.5, ease: "easeOut", delay: stagger(0.06) }
           )
         } else {
-          // Scrolled BACK UP above mission — animate images back in
           animate(
             "img",
-            { opacity: 1, y: 0 },
-            { duration: 0.6, ease: "easeOut", delay: stagger(0.08) }
+            { opacity: 1 },
+            { duration: 0.6, ease: "easeOut", delay: stagger(0.06) }
           )
         }
       },

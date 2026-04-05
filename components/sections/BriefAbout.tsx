@@ -8,10 +8,10 @@ export default function BriefAbout() {
     <section id="mission-section" className="relative px-6 md:px-10 py-24 md:py-40">
       {/* Rotated "OUR MISSION" label — left of gold rule */}
       <span
-        className="absolute font-body font-normal text-[9px] uppercase hidden md:block"
+        className="absolute font-body font-normal text-[11px] uppercase hidden md:block"
         style={{
-          letterSpacing: "0.35em",
-          color: "#4a4540",
+          letterSpacing: "0.25em",
+          color: "#7a7166",
           transform: "rotate(-90deg)",
           transformOrigin: "center center",
           left: "12px",
