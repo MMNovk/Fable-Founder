@@ -42,9 +42,6 @@ export default function BriefAbout() {
             aren&rsquo;t forgotten.
           </p>
 
-          {/* Rule */}
-          <div className="w-full mb-8" style={{ height: "0.5px", background: "#4a4540" }} />
-
           {/* Brief about paragraph */}
           <p
             className="font-body font-light text-[15px] leading-[1.9] mb-8"

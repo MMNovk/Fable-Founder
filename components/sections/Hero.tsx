@@ -58,60 +58,57 @@ const heroImages = [
 const titleText = "Fable & Founder"
 
 export default function Hero() {
-  const containerRef = useRef<HTMLDivElement>(null)
   const didAnimate = useRef(false)
 
   useEffect(() => {
     if (didAnimate.current) return
     didAnimate.current = true
 
-    const sequence = async () => {
-      // Phase 1: letters in one by one
+    const run = async () => {
       await animate(
         ".hero-letter",
         { opacity: [0, 1], y: [20, 0] },
         { duration: 0.5, delay: stagger(0.04), ease: "easeOut" }
       )
-      // Phase 2: CTA fades in
       await animate(
         ".hero-cta",
         { opacity: [0, 1] },
         { duration: 0.4, ease: "easeOut" }
       )
-      // Phase 3: photos fade in one by one
       animate(
         ".hero-img",
         { opacity: [0, 1] },
         { duration: 0.5, delay: stagger(0.15) }
       )
     }
-    sequence()
 
-    // Scroll observer — opacity only, no y transform (parallax owns transform)
-    const missionSection = document.getElementById("mission-section")
-    if (!missionSection) return
+    run()
+  }, [])
+
+  useEffect(() => {
+    const missionEl = document.getElementById("mission-section")
+    if (!missionEl) return
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          animate(".hero-img", { opacity: 0 }, { duration: 0.5, ease: "easeOut", delay: stagger(0.05) })
+          animate(".hero-img", { opacity: 0 }, { duration: 0.5, delay: stagger(0.05) })
         } else {
-          animate(".hero-img", { opacity: 1 }, { duration: 0.6, ease: "easeOut", delay: stagger(0.05) })
+          animate(".hero-img", { opacity: 1 }, { duration: 0.6, delay: stagger(0.05) })
         }
       },
       { threshold: 0.5 }
     )
-    observer.observe(missionSection)
+
+    observer.observe(missionEl)
     return () => observer.disconnect()
   }, [])
 
   return (
     <div
-      ref={containerRef}
       className="flex w-full h-full min-h-screen justify-center items-center overflow-hidden"
       style={{ background: "#2a2926" }}
     >
-      {/* Centered text */}
       <div className="z-50 text-center flex flex-col items-center gap-6">
         <h1
           className="font-display font-light leading-none"
@@ -121,10 +118,7 @@ export default function Hero() {
             <span
               key={i}
               className="hero-letter inline-block"
-              style={{
-                opacity: 0,
-                fontStyle: i < 5 ? "italic" : "normal",
-              }}
+              style={{ opacity: 0, fontStyle: i < 5 ? "italic" : "normal" }}
             >
               {char === " " ? "\u00A0" : char}
             </span>
@@ -139,7 +133,6 @@ export default function Hero() {
         </a>
       </div>
 
-      {/* Floating images — plain <img> tags, NOT motion.img */}
       <Floating sensitivity={-1} easingFactor={0.025} className="overflow-hidden">
         {heroImages.map((img, i) => (
           <FloatingElement key={i} depth={img.depth} className={img.className}>
@@ -148,10 +141,7 @@ export default function Hero() {
               alt=""
               src={img.url}
               className={`hero-img ${img.imgClassName} object-cover hover:scale-105 duration-200 cursor-pointer transition-transform`}
-              style={{
-                opacity: 0,
-                filter: "sepia(0.5) brightness(0.85)",
-              }}
+              style={{ opacity: 0, filter: "sepia(0.5) brightness(0.85)" }}
             />
           </FloatingElement>
         ))}
