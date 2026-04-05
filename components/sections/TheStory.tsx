@@ -23,23 +23,16 @@ export default function TheStory() {
           >
             Harold Kim
           </h3>
-          <p
-            className="font-body font-light text-[12px] uppercase mt-1"
-            style={{ letterSpacing: "0.2em", color: "#c4a96b" }}
-          >
-            1931 — 2019
-          </p>
-          <p className="font-body font-light text-[12px] mt-1 mb-6" style={{ color: "#7a7166" }}>
-            Busan &middot; San Francisco &middot; Oakland
-          </p>
-
-          {/* Coin player */}
-          <div className="mb-8">
+          <div className="flex items-start justify-between gap-6">
+            <div>
+              <p style={{ color: "#c4a96b", fontFamily: "Jost", fontWeight: 300, fontSize: 13 }}>1931 — 2019</p>
+              <p style={{ color: "#7a7166", fontFamily: "Jost", fontWeight: 300, fontSize: 13 }}>Busan · San Francisco · Oakland</p>
+            </div>
             <MemoryCoin audioSrc="/audio/placeholder.mp3" />
           </div>
 
           {/* Rule */}
-          <div className="w-full mb-8" style={{ height: "0.5px", background: "#4a4540" }} />
+          <div className="w-full mt-8 mb-8" style={{ height: "0.5px", background: "#4a4540" }} />
 
           {/* Block 3: From the Archive */}
           <p
