@@ -118,7 +118,7 @@ export default function Hero() {
             <span
               key={i}
               className="hero-letter inline-block"
-              style={{ opacity: 0, fontStyle: i < 5 ? "italic" : "normal" }}
+              style={{ fontStyle: i < 5 ? "italic" : "normal" }}
             >
               {char === " " ? "\u00A0" : char}
             </span>
@@ -127,7 +127,7 @@ export default function Hero() {
         <a
           href="/commission"
           className="hero-cta font-body font-normal uppercase text-[11px] tracking-[0.25em] pb-2 border-b transition-colors duration-300"
-          style={{ opacity: 0, color: "#d4cfc6", borderColor: "#c4a96b" }}
+          style={{ color: "#d4cfc6", borderColor: "#c4a96b" }}
         >
           Preserve a Story
         </a>
@@ -141,7 +141,7 @@ export default function Hero() {
               alt=""
               src={img.url}
               className={`hero-img ${img.imgClassName} object-cover hover:scale-105 duration-200 cursor-pointer transition-transform`}
-              style={{ opacity: 0, filter: "sepia(0.5) brightness(0.85)" }}
+              style={{ filter: "sepia(0.5) brightness(0.85)" }}
             />
           </FloatingElement>
         ))}

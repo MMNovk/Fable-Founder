@@ -50,3 +50,10 @@ body {
   background-color: var(--color-accent);
   color: var(--color-bg);
 }
+
+/* Hero elements hidden by default — animate() sets inline opacity to override */
+.hero-letter,
+.hero-cta,
+.hero-img {
+  opacity: 0;
+}
