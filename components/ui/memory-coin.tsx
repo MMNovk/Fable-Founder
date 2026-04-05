@@ -1,184 +1,118 @@
-"use client";
+"use client"
+import * as React from "react"
+import { motion } from "motion/react"
 
-import { useState, useRef } from "react";
+export default function MemoryCoin({ audioSrc }: { audioSrc: string }) {
+  const [isHovered, setIsHovered] = React.useState(false)
+  const [isPlaying, setIsPlaying] = React.useState(false)
+  const [progress, setProgress] = React.useState(0)
+  const [duration, setDuration] = React.useState(0)
+  const [currentTime, setCurrentTime] = React.useState(0)
+  const audioRef = React.useRef<HTMLAudioElement | null>(null)
 
-interface CoinProps {
-  audioSrc: string;
-}
-
-const formatTime = (s: number) => {
-  const m = Math.floor(s / 60);
-  const sec = Math.floor(s % 60);
-  return `${m}:${sec.toString().padStart(2, "0")}`;
-};
-
-export default function MemoryCoin({ audioSrc }: CoinProps) {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [rotation, setRotation] = useState(0);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(0);
-  const coinRef = useRef<HTMLDivElement>(null);
-  const audioRef = useRef<HTMLAudioElement>(null);
-
-  const spinDuration = 8;
+  const isExpanded = isHovered || isPlaying
 
   const handleClick = () => {
-    if (!audioRef.current) return;
+    if (!audioRef.current) return
     if (isPlaying) {
-      audioRef.current.pause();
-      if (coinRef.current) {
-        const computedStyle = window.getComputedStyle(coinRef.current);
-        const transform = computedStyle.transform;
-        if (transform && transform !== "none") {
-          const matrix = new DOMMatrix(transform);
-          const angle = Math.atan2(matrix.b, matrix.a) * (180 / Math.PI);
-          setRotation(angle < 0 ? angle + 360 : angle);
-        }
-      }
+      audioRef.current.pause()
     } else {
-      audioRef.current.play();
+      audioRef.current.play()
     }
-    setIsPlaying(!isPlaying);
-  };
+    setIsPlaying(!isPlaying)
+  }
+
+  const handleSeek = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!audioRef.current || !duration) return
+    const rect = e.currentTarget.getBoundingClientRect()
+    const x = e.clientX - rect.left
+    const ratio = x / rect.width
+    audioRef.current.currentTime = ratio * duration
+  }
+
+  const formatTime = (s: number) => {
+    const m = Math.floor(s / 60)
+    const sec = Math.floor(s % 60)
+    return `${m}:${sec.toString().padStart(2, "0")}`
+  }
 
   return (
-    <div className="flex flex-col">
-      <style jsx>{`
-        @keyframes coin-spin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-        @keyframes coin-counter-spin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(-360deg); }
-        }
-        input[type="range"]::-webkit-slider-thumb {
-          -webkit-appearance: none;
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          background: #c4a96b;
-          cursor: pointer;
-          margin-top: -3px;
-        }
-        input[type="range"]::-moz-range-thumb {
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          background: #c4a96b;
-          cursor: pointer;
-          border: none;
-        }
-        input[type="range"]::-webkit-slider-runnable-track {
-          height: 2px;
-          cursor: pointer;
-        }
-        input[type="range"]::-moz-range-track {
-          height: 2px;
-          cursor: pointer;
-          background: #4a4540;
-        }
-      `}</style>
+    <div className="flex items-center">
       <audio
         ref={audioRef}
         src={audioSrc}
-        onTimeUpdate={() =>
-          setCurrentTime(audioRef.current?.currentTime ?? 0)
-        }
-        onLoadedMetadata={() =>
-          setDuration(audioRef.current?.duration ?? 0)
-        }
+        onTimeUpdate={() => {
+          const t = audioRef.current?.currentTime ?? 0
+          const d = audioRef.current?.duration ?? 0
+          setCurrentTime(t)
+          setProgress(d ? (t / d) * 100 : 0)
+        }}
+        onLoadedMetadata={() => setDuration(audioRef.current?.duration ?? 0)}
+        onEnded={() => setIsPlaying(false)}
       />
 
-      {/* Coin + label inline */}
-      <div className="flex items-center gap-4">
-        {/* Coin */}
-        <div
-          ref={coinRef}
-          className="w-14 h-14 rounded-full cursor-pointer flex items-center justify-center shrink-0"
-          style={{
-            background:
-              "radial-gradient(circle at 35% 35%, #D4AF5A, #8B6914)",
-            transform: isPlaying ? undefined : `rotate(${rotation}deg)`,
-            animation: isPlaying
-              ? `coin-spin ${spinDuration}s linear infinite`
-              : "none",
-            animationDelay: isPlaying
-              ? `${-rotation / (360 / spinDuration)}s`
-              : undefined,
-          }}
-          onClick={handleClick}
+      <motion.div
+        initial={{ width: 48, height: 48 }}
+        animate={{ width: isExpanded ? 320 : 48, height: 48 }}
+        onHoverStart={() => setIsHovered(true)}
+        onHoverEnd={() => setIsHovered(false)}
+        onClick={handleClick}
+        transition={{ duration: 0.35, ease: "easeInOut" }}
+        className="flex items-center overflow-hidden cursor-pointer relative"
+        style={{
+          borderRadius: 24,
+          background: "radial-gradient(circle at 35% 35%, #D4AF5A, #8B6914)",
+        }}
+      >
+        {/* Collapsed: just the circle, no icon */}
+        <motion.div
+          className="absolute left-0 flex items-center justify-center"
+          style={{ width: 48, height: 48 }}
+          animate={{ opacity: isExpanded ? 0 : 1 }}
+          transition={{ duration: 0.15 }}
+        />
+
+        {/* Expanded: pause/play + label + progress */}
+        <motion.div
+          className="flex items-center gap-3 px-4 w-full"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isExpanded ? 1 : 0 }}
+          transition={{ duration: 0.2, delay: isExpanded ? 0.15 : 0 }}
         >
-          {/* Inner — counter-rotates to keep content upright */}
-          <div
-            className="w-10 h-10 rounded-full border border-[rgba(255,255,255,0.15)] flex items-center justify-center"
-            style={{
-              animation: isPlaying
-                ? `coin-counter-spin ${spinDuration}s linear infinite`
-                : "none",
-              animationDelay: isPlaying
-                ? `${-rotation / (360 / spinDuration)}s`
-                : undefined,
-            }}
-          >
+          {/* Play/pause icon */}
+          <div className="flex-shrink-0">
             {isPlaying ? (
-              <div className="flex gap-1">
-                <div className="w-0.5 h-3 bg-[rgba(255,255,255,0.7)] rounded" />
-                <div className="w-0.5 h-3 bg-[rgba(255,255,255,0.7)] rounded" />
+              <div className="flex gap-0.5">
+                <div className="w-0.5 h-3.5 bg-white rounded" />
+                <div className="w-0.5 h-3.5 bg-white rounded" />
               </div>
-            ) : null}
+            ) : (
+              <div className="w-0 h-0 border-l-[6px] border-l-white border-t-[4px] border-t-transparent border-b-[4px] border-b-transparent ml-0.5" />
+            )}
           </div>
-        </div>
 
-        <p
-          className="font-body font-normal text-[11px] uppercase"
-          style={{ letterSpacing: "0.25em", color: "#c4a96b" }}
-        >
-          Listen to his story.
-        </p>
-      </div>
+          <div className="flex flex-col gap-1 flex-1 min-w-0">
+            <span
+              className="text-white whitespace-nowrap"
+              style={{ fontSize: 10, fontFamily: "Jost", letterSpacing: "0.15em", textTransform: "uppercase", opacity: 0.85 }}
+            >
+              {isPlaying ? `${formatTime(currentTime)} / ${formatTime(duration)}` : "Listen to his story"}
+            </span>
 
-      {/* Progress bar — only when playing */}
-      {isPlaying && (
-        <div className="w-full flex flex-col gap-1 mt-3">
-          <input
-            type="range"
-            min={0}
-            max={duration || 1}
-            value={currentTime}
-            onChange={(e) => {
-              if (audioRef.current) {
-                audioRef.current.currentTime = Number(e.target.value);
-                setCurrentTime(Number(e.target.value));
-              }
-            }}
-            className="w-full appearance-none cursor-pointer"
-            style={{
-              accentColor: "#c4a96b",
-              background: `linear-gradient(to right, #c4a96b ${
-                duration ? (currentTime / duration) * 100 : 0
-              }%, #4a4540 ${
-                duration ? (currentTime / duration) * 100 : 0
-              }%)`,
-              height: "2px",
-            }}
-          />
-          <div className="flex justify-between">
-            <span
-              className="font-body"
-              style={{ fontSize: "11px", color: "#7a7166" }}
+            {/* Progress track */}
+            <div
+              className="w-full h-0.5 rounded-full cursor-pointer"
+              style={{ background: "rgba(255,255,255,0.25)" }}
+              onClick={handleSeek}
             >
-              {formatTime(currentTime)}
-            </span>
-            <span
-              className="font-body"
-              style={{ fontSize: "11px", color: "#7a7166" }}
-            >
-              {formatTime(duration)}
-            </span>
+              <div
+                className="h-full rounded-full"
+                style={{ width: `${progress}%`, background: "rgba(255,255,255,0.85)", transition: "width 0.1s linear" }}
+              />
+            </div>
           </div>
-        </div>
-      )}
+        </motion.div>
+      </motion.div>
     </div>
-  );
+  )
 }
