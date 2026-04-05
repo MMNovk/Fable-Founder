@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect } from "react"
 import { motion, stagger, useAnimate } from "motion/react"
 import Floating, { FloatingElement } from "@/components/ui/parallax-floating"
 
@@ -59,28 +59,28 @@ const titleText = "Fable & Founder"
 
 export default function Hero() {
   const [scope, animate] = useAnimate()
-  const hasAnimated = useRef(false)
 
   useEffect(() => {
-    if (hasAnimated.current) return
-    hasAnimated.current = true
+    // Guard: check if images are already visible (Strict Mode remount)
+    const imgs = document.querySelectorAll(".hero-img")
+    const alreadyVisible = Array.from(imgs).some(
+      (img) => (img as HTMLElement).style.opacity === "1"
+    )
+    if (alreadyVisible) return
 
     const sequence = async () => {
-      // Phase 1: letters animate in one by one
       await animate(
         ".hero-letter",
         { opacity: [0, 1], y: [20, 0] },
         { duration: 0.5, delay: stagger(0.04), ease: "easeOut" }
       )
-      // Phase 2: CTA fades in
       await animate(
         ".hero-cta",
         { opacity: [0, 1], y: [10, 0] },
         { duration: 0.4, ease: "easeOut" }
       )
-      // Phase 3: photos fade in one by one
       animate(
-        "img",
+        ".hero-img",
         { opacity: [0, 1] },
         { duration: 0.5, delay: stagger(0.15) }
       )
@@ -88,8 +88,7 @@ export default function Hero() {
     sequence()
   }, [])
 
-  // Fade out hero images when mission section scrolls into view, back in when leaving
-  // Opacity only — no y transform, which conflicts with parallax translate3d
+  // Opacity-only scroll observer — no y to avoid parallax conflict
   useEffect(() => {
     const missionSection = document.getElementById("mission-section")
     if (!missionSection) return
@@ -98,13 +97,13 @@ export default function Hero() {
       ([entry]) => {
         if (entry.isIntersecting) {
           animate(
-            "img",
+            ".hero-img",
             { opacity: 0 },
             { duration: 0.5, ease: "easeOut", delay: stagger(0.06) }
           )
         } else {
           animate(
-            "img",
+            ".hero-img",
             { opacity: 1 },
             { duration: 0.6, ease: "easeOut", delay: stagger(0.06) }
           )
@@ -156,7 +155,7 @@ export default function Hero() {
               initial={{ opacity: 0 }}
               src={img.url}
               alt=""
-              className={`${img.imgClassName} object-cover hover:scale-105 duration-200 cursor-pointer transition-transform`}
+              className={`hero-img ${img.imgClassName} object-cover hover:scale-105 duration-200 cursor-pointer transition-transform`}
               style={{ filter: "sepia(0.5) brightness(0.85)" }}
             />
           </FloatingElement>
