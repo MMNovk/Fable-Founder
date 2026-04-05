@@ -126,11 +126,7 @@ export default function MemoryCoin({ audioSrc }: CoinProps) {
                 <div className="w-0.5 h-3 bg-[rgba(255,255,255,0.7)] rounded" />
                 <div className="w-0.5 h-3 bg-[rgba(255,255,255,0.7)] rounded" />
               </div>
-            ) : (
-              <span className="font-display text-lg text-[rgba(255,255,255,0.7)] italic font-light select-none">
-                F
-              </span>
-            )}
+            ) : null}
           </div>
         </div>
 

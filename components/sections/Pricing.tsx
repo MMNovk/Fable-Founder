@@ -52,14 +52,14 @@ const tiers = [
 
 export default function Pricing() {
   return (
-    <section id="pricing" className="px-6 md:px-10 py-24 md:py-40">
+    <section id="pricing" className="px-6 md:px-10 pt-[120px] pb-24 md:pb-40">
       <div className="max-w-6xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.9, ease: "easeOut" }}
-          className="font-display font-light text-text-primary mb-16 md:mb-20"
+          className="font-display font-light text-text-primary mb-12"
           style={{ fontSize: "clamp(40px, 5vw, 64px)" }}
         >
           The Commission

@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function BriefAbout() {
   return (
-    <section className="px-6 md:px-10 py-24 md:py-40">
+    <section id="mission-section" className="px-6 md:px-10 py-24 md:py-40">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}

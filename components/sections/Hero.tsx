@@ -84,6 +84,28 @@ export default function Hero() {
     sequence()
   }, [])
 
+  // Fade out hero images when mission section scrolls into view
+  useEffect(() => {
+    const missionSection = document.getElementById("mission-section")
+    if (!missionSection) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          animate(
+            "img",
+            { opacity: 0, y: -60 },
+            { duration: 0.6, ease: "easeOut", delay: stagger(0.08) }
+          )
+        }
+      },
+      { threshold: 0.5 }
+    )
+
+    observer.observe(missionSection)
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <div
       className="flex w-full h-full min-h-screen justify-center items-center overflow-hidden"

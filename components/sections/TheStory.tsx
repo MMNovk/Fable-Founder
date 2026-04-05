@@ -8,7 +8,7 @@ export default function TheStory() {
   return (
     <section className="px-6 md:px-10 py-24 md:py-40">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24">
-        {/* Left — Coin + Archive excerpt */}
+        {/* Left — Identity + Coin + Archive excerpt */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -16,7 +16,27 @@ export default function TheStory() {
           transition={{ duration: 0.9, ease: "easeOut" }}
           className="flex flex-col"
         >
-          {/* Block 1: Coin + Listen inline */}
+          {/* Block 1: Subject identity */}
+          <h3
+            className="font-display font-light"
+            style={{ fontSize: "clamp(28px, 3.5vw, 48px)", color: "#d4cfc6" }}
+          >
+            Harold Kim
+          </h3>
+          <p
+            className="font-body font-light text-[12px] uppercase mt-1"
+            style={{ letterSpacing: "0.2em", color: "#c4a96b" }}
+          >
+            1931 — 2019
+          </p>
+          <p className="font-body font-light text-[12px] mt-1 mb-8" style={{ color: "#7a7166" }}>
+            Busan &middot; San Francisco &middot; Oakland
+          </p>
+
+          {/* Rule */}
+          <div className="w-full mb-8" style={{ height: "0.5px", background: "#4a4540" }} />
+
+          {/* Block 2: Coin + Listen inline */}
           <div className="mb-8">
             <MemoryCoin audioSrc="/audio/placeholder.mp3" />
           </div>
@@ -24,7 +44,7 @@ export default function TheStory() {
           {/* Rule */}
           <div className="w-full mb-8" style={{ height: "0.5px", background: "#4a4540" }} />
 
-          {/* Block 2 */}
+          {/* Block 3: From the Archive */}
           <p
             className="font-body font-normal text-[10px] uppercase mb-4"
             style={{ letterSpacing: "0.3em", color: "#7a7166" }}
@@ -56,7 +76,7 @@ export default function TheStory() {
           </Link>
         </motion.div>
 
-        {/* Right — Portrait only */}
+        {/* Right — Portrait ONLY */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -64,22 +84,6 @@ export default function TheStory() {
           transition={{ duration: 0.9, ease: "easeOut", delay: 0.15 }}
           className="flex flex-col"
         >
-          <h3
-            className="font-display font-light"
-            style={{ fontSize: "clamp(28px, 3.5vw, 48px)", color: "#d4cfc6" }}
-          >
-            Harold Kim
-          </h3>
-          <p
-            className="font-body font-light text-[12px] uppercase mt-1"
-            style={{ letterSpacing: "0.2em", color: "#c4a96b" }}
-          >
-            1931 — 2019
-          </p>
-          <p className="font-body font-light text-[12px] mt-1 mb-6" style={{ color: "#7a7166" }}>
-            Busan &middot; San Francisco &middot; Oakland
-          </p>
-
           <div className="relative w-full max-w-sm aspect-[3/4] overflow-hidden">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
