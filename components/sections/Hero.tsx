@@ -59,8 +59,12 @@ const titleText = "Fable & Founder"
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null)
+  const didAnimate = useRef(false)
 
   useEffect(() => {
+    if (didAnimate.current) return
+    didAnimate.current = true
+
     const sequence = async () => {
       // Phase 1: letters in one by one
       await animate(
@@ -71,7 +75,7 @@ export default function Hero() {
       // Phase 2: CTA fades in
       await animate(
         ".hero-cta",
-        { opacity: [0, 1], y: [10, 0] },
+        { opacity: [0, 1] },
         { duration: 0.4, ease: "easeOut" }
       )
       // Phase 3: photos fade in one by one
@@ -90,9 +94,9 @@ export default function Hero() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          animate(".hero-img", { opacity: 0 }, { duration: 0.5, ease: "easeOut", delay: stagger(0.06) })
+          animate(".hero-img", { opacity: 0 }, { duration: 0.5, ease: "easeOut", delay: stagger(0.05) })
         } else {
-          animate(".hero-img", { opacity: 1 }, { duration: 0.6, ease: "easeOut", delay: stagger(0.06) })
+          animate(".hero-img", { opacity: 1 }, { duration: 0.6, ease: "easeOut", delay: stagger(0.05) })
         }
       },
       { threshold: 0.5 }
