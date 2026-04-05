@@ -9,10 +9,12 @@ export default function MemoryCoin({ audioSrc }: { audioSrc: string }) {
   const [duration, setDuration] = React.useState(0)
   const [currentTime, setCurrentTime] = React.useState(0)
   const audioRef = React.useRef<HTMLAudioElement | null>(null)
+  const trackRef = React.useRef<HTMLDivElement | null>(null)
 
   const isExpanded = isHovered || isPlaying
 
-  const handleClick = () => {
+  const handleClick = (e: React.MouseEvent) => {
+    if ((e.target as HTMLElement).closest('.progress-track')) return
     if (!audioRef.current) return
     if (isPlaying) {
       audioRef.current.pause()
@@ -23,11 +25,14 @@ export default function MemoryCoin({ audioSrc }: { audioSrc: string }) {
   }
 
   const handleSeek = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!audioRef.current || !duration) return
-    const rect = e.currentTarget.getBoundingClientRect()
+    e.stopPropagation()
+    if (!audioRef.current || !duration || !trackRef.current) return
+    const rect = trackRef.current.getBoundingClientRect()
     const x = e.clientX - rect.left
-    const ratio = x / rect.width
+    const ratio = Math.max(0, Math.min(1, x / rect.width))
     audioRef.current.currentTime = ratio * duration
+    setCurrentTime(ratio * duration)
+    setProgress(ratio * 100)
   }
 
   const formatTime = (s: number) => {
@@ -48,66 +53,92 @@ export default function MemoryCoin({ audioSrc }: { audioSrc: string }) {
           setProgress(d ? (t / d) * 100 : 0)
         }}
         onLoadedMetadata={() => setDuration(audioRef.current?.duration ?? 0)}
-        onEnded={() => setIsPlaying(false)}
+        onEnded={() => { setIsPlaying(false); setProgress(0); setCurrentTime(0) }}
       />
 
       <motion.div
         initial={{ width: 48, height: 48 }}
-        animate={{ width: isExpanded ? 320 : 48, height: 48 }}
+        animate={{ width: isExpanded ? 300 : 48, height: 48 }}
         onHoverStart={() => setIsHovered(true)}
         onHoverEnd={() => setIsHovered(false)}
         onClick={handleClick}
         transition={{ duration: 0.35, ease: "easeInOut" }}
-        className="flex items-center overflow-hidden cursor-pointer relative"
+        className="flex items-center overflow-hidden cursor-pointer relative flex-shrink-0"
         style={{
           borderRadius: 24,
           background: "radial-gradient(circle at 35% 35%, #D4AF5A, #8B6914)",
         }}
       >
-        {/* Collapsed: just the circle, no icon */}
+        {/* Collapsed: F&F monogram */}
         <motion.div
-          className="absolute left-0 flex items-center justify-center"
-          style={{ width: 48, height: 48 }}
+          className="absolute inset-0 flex items-center justify-center"
           animate={{ opacity: isExpanded ? 0 : 1 }}
           transition={{ duration: 0.15 }}
-        />
+          style={{ pointerEvents: "none" }}
+        >
+          <span style={{
+            fontFamily: "Cormorant Garamond, serif",
+            fontSize: 13,
+            fontStyle: "italic",
+            color: "rgba(255,255,255,0.85)",
+            letterSpacing: "0.05em",
+            userSelect: "none",
+          }}>
+            F&F
+          </span>
+        </motion.div>
 
-        {/* Expanded: pause/play + label + progress */}
+        {/* Expanded: play/pause + label + progress */}
         <motion.div
           className="flex items-center gap-3 px-4 w-full"
           initial={{ opacity: 0 }}
           animate={{ opacity: isExpanded ? 1 : 0 }}
           transition={{ duration: 0.2, delay: isExpanded ? 0.15 : 0 }}
+          style={{ pointerEvents: isExpanded ? "auto" : "none" }}
         >
-          {/* Play/pause icon */}
-          <div className="flex-shrink-0">
+          <div className="flex-shrink-0" style={{ width: 12 }}>
             {isPlaying ? (
               <div className="flex gap-0.5">
-                <div className="w-0.5 h-3.5 bg-white rounded" />
-                <div className="w-0.5 h-3.5 bg-white rounded" />
+                <div className="w-0.5 h-3.5 rounded" style={{ background: "rgba(255,255,255,0.9)" }} />
+                <div className="w-0.5 h-3.5 rounded" style={{ background: "rgba(255,255,255,0.9)" }} />
               </div>
             ) : (
-              <div className="w-0 h-0 border-l-[6px] border-l-white border-t-[4px] border-t-transparent border-b-[4px] border-b-transparent ml-0.5" />
+              <div className="w-0 h-0 ml-0.5"
+                style={{
+                  borderLeft: "6px solid rgba(255,255,255,0.9)",
+                  borderTop: "4px solid transparent",
+                  borderBottom: "4px solid transparent",
+                }}
+              />
             )}
           </div>
 
           <div className="flex flex-col gap-1 flex-1 min-w-0">
-            <span
-              className="text-white whitespace-nowrap"
-              style={{ fontSize: 10, fontFamily: "Jost", letterSpacing: "0.15em", textTransform: "uppercase", opacity: 0.85 }}
-            >
+            <span style={{
+              fontSize: 9,
+              fontFamily: "Jost, sans-serif",
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              color: "rgba(255,255,255,0.8)",
+              whiteSpace: "nowrap",
+            }}>
               {isPlaying ? `${formatTime(currentTime)} / ${formatTime(duration)}` : "Listen to his story"}
             </span>
 
-            {/* Progress track */}
             <div
-              className="w-full h-0.5 rounded-full cursor-pointer"
-              style={{ background: "rgba(255,255,255,0.25)" }}
+              ref={trackRef}
+              className="progress-track w-full cursor-pointer"
+              style={{ height: 2, background: "rgba(255,255,255,0.25)", borderRadius: 1 }}
               onClick={handleSeek}
             >
               <div
-                className="h-full rounded-full"
-                style={{ width: `${progress}%`, background: "rgba(255,255,255,0.85)", transition: "width 0.1s linear" }}
+                style={{
+                  height: "100%",
+                  width: `${progress}%`,
+                  background: "rgba(255,255,255,0.85)",
+                  borderRadius: 1,
+                  transition: "width 0.1s linear",
+                }}
               />
             </div>
           </div>

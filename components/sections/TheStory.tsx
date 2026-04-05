@@ -29,14 +29,11 @@ export default function TheStory() {
           >
             1931 — 2019
           </p>
-          <p className="font-body font-light text-[12px] mt-1 mb-8" style={{ color: "#7a7166" }}>
+          <p className="font-body font-light text-[12px] mt-1 mb-6" style={{ color: "#7a7166" }}>
             Busan &middot; San Francisco &middot; Oakland
           </p>
 
-          {/* Rule */}
-          <div className="w-full mb-8" style={{ height: "0.5px", background: "#4a4540" }} />
-
-          {/* Block 2: Coin + Listen inline */}
+          {/* Coin player */}
           <div className="mb-8">
             <MemoryCoin audioSrc="/audio/placeholder.mp3" />
           </div>
