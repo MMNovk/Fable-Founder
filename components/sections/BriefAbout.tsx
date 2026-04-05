@@ -5,7 +5,23 @@ import Link from "next/link";
 
 export default function BriefAbout() {
   return (
-    <section id="mission-section" className="px-6 md:px-10 py-24 md:py-40">
+    <section id="mission-section" className="relative px-6 md:px-10 py-24 md:py-40">
+      {/* Rotated "OUR MISSION" label — left of gold rule */}
+      <span
+        className="absolute font-body font-normal text-[9px] uppercase hidden md:block"
+        style={{
+          letterSpacing: "0.35em",
+          color: "#4a4540",
+          transform: "rotate(-90deg)",
+          transformOrigin: "center center",
+          left: "12px",
+          top: "50%",
+          marginTop: "-30px",
+        }}
+      >
+        Our Mission
+      </span>
+
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}

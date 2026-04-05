@@ -84,7 +84,7 @@ export default function Hero() {
     sequence()
   }, [])
 
-  // Fade out hero images when mission section scrolls into view
+  // Fade out hero images when mission section scrolls into view, back in when leaving
   useEffect(() => {
     const missionSection = document.getElementById("mission-section")
     if (!missionSection) return
@@ -92,9 +92,17 @@ export default function Hero() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
+          // Scrolled DOWN to mission — animate images out upward
           animate(
             "img",
             { opacity: 0, y: -60 },
+            { duration: 0.6, ease: "easeOut", delay: stagger(0.08) }
+          )
+        } else {
+          // Scrolled BACK UP above mission — animate images back in
+          animate(
+            "img",
+            { opacity: 1, y: 0 },
             { duration: 0.6, ease: "easeOut", delay: stagger(0.08) }
           )
         }
