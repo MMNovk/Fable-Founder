@@ -61,24 +61,20 @@ export default function Hero() {
   const [scope, animate] = useAnimate()
 
   useEffect(() => {
-    // Guard: check if images are already visible (Strict Mode remount)
-    const imgs = document.querySelectorAll(".hero-img")
-    const alreadyVisible = Array.from(imgs).some(
-      (img) => (img as HTMLElement).style.opacity === "1"
-    )
-    if (alreadyVisible) return
-
     const sequence = async () => {
+      // Phase 1: letters
       await animate(
         ".hero-letter",
         { opacity: [0, 1], y: [20, 0] },
         { duration: 0.5, delay: stagger(0.04), ease: "easeOut" }
       )
+      // Phase 2: CTA
       await animate(
         ".hero-cta",
         { opacity: [0, 1], y: [10, 0] },
         { duration: 0.4, ease: "easeOut" }
       )
+      // Phase 3: photos — runs AFTER text is done
       animate(
         ".hero-img",
         { opacity: [0, 1] },
